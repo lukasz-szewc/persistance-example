@@ -1,5 +1,7 @@
 package org.luksze;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,6 +12,9 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 public class FirstTest {
+
+    private static final Logger logger = LogManager.getLogger(FirstTest.class);
+
     @Test
     public void testName() throws Exception {
 
@@ -18,6 +23,7 @@ public class FirstTest {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
 
         Duration from = Duration.between(startTest, LocalTime.now());
+        logger.info("$@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("Seconds" + from.getSeconds() + " nanoseconds :" + from.toMillis() );
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
