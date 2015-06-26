@@ -1,5 +1,6 @@
 package org.luksze;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -22,6 +23,8 @@ public class FirstTest {
         entityManager.getTransaction().begin();
         Person person1 = entityManager.find(Person.class, 1l);
 
+        Assert.assertEquals(person.getName(), person1.getName());
+        Assert.assertEquals(person.getSurname(), person1.getSurname());
         entityManager.getTransaction().commit();
     }
 }
