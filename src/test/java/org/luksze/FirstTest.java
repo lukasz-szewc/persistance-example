@@ -23,8 +23,7 @@ public class FirstTest {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
 
         Duration from = Duration.between(startTest, LocalTime.now());
-        logger.info("$@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("Seconds" + from.getSeconds() + " nanoseconds :" + from.toMillis() );
+        logger.info("Entity manager factory created in: " + from.toMillis() + " milliseconds");
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -35,11 +34,13 @@ public class FirstTest {
 
         entityManager.getTransaction().commit();
 
-        entityManager.getTransaction().begin();
-        Person person1 = entityManager.find(Person.class, 1l);
+        EntityManager manager = entityManagerFactory.createEntityManager();
+
+        manager.getTransaction().begin();
+        Person person1 = manager.find(Person.class, 1l);
 
         Assert.assertEquals(person.getName(), person1.getName());
         Assert.assertEquals(person.getSurname(), person1.getSurname());
-        entityManager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
 }
