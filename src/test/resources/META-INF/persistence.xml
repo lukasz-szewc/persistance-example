@@ -5,6 +5,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>org.luksze.Person</class>
+        <class>org.luksze.Date</class>
 
         <properties>
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:firstBase"/>

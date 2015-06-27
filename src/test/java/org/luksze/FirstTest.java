@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class FirstTest {
@@ -42,5 +43,12 @@ public class FirstTest {
         Assert.assertEquals(person.getName(), person1.getName());
         Assert.assertEquals(person.getSurname(), person1.getSurname());
         manager.getTransaction().commit();
+
+        Date date = new Date();
+        date.setLocalDate(LocalDate.now());
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(date);
+        entityManager.getTransaction().commit();
     }
 }
