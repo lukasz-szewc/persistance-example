@@ -3,6 +3,7 @@ package org.luksze;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Person {
@@ -39,6 +40,15 @@ public class Person {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public boolean hasEqualContent(Person p) {
+        return this == p || Objects.equals(name, p.name) && Objects.equals(surname, p.surname);
+    }
+
+    public boolean hasEqualIdentifier(Person person) {
+        return person.id.equals(id);
+    }
+
     @Override
     public String toString() {
         return "Person [id=" + id + ", name=" + name + ", surname=" + surname + "]";
