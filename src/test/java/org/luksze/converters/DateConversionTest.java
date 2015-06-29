@@ -28,7 +28,9 @@ public class DateConversionTest {
 
         //when
         Assert.assertEquals(fetched.id(), persisted.id());
-        Assert.assertEquals(fetched.localDate(), persisted.localDate());
+        Assert.assertEquals(fetched.firstLocalDateTime(), persisted.firstLocalDateTime());
+        Assert.assertEquals(fetched.secondLocalDateTime(), persisted.secondLocalDateTime());
+        Assert.assertEquals(fetched.thirdLocalDateTime(), persisted.thirdLocalDateTime());
     }
 
     @After
