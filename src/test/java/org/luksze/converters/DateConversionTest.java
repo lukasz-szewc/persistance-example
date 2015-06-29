@@ -1,4 +1,4 @@
-package org.luksze;
+package org.luksze.converters;
 
 import org.junit.After;
 import org.junit.Assert;
