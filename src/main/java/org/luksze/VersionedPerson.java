@@ -3,20 +3,23 @@ package org.luksze;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.Objects;
 
 @Entity
-public class Person {
+public class VersionedPerson {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private String surname;
+    @Version
+    private long version;
 
-    protected Person() {}
+    protected VersionedPerson() {}
 
-    public Person(String name, String surname) {
+    public VersionedPerson(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
@@ -33,16 +36,16 @@ public class Person {
         this.surname = surname;
     }
 
-    public boolean hasEqualContent(Person p) {
+    public boolean hasEqualContent(VersionedPerson p) {
         return this == p || Objects.equals(name, p.name) && Objects.equals(surname, p.surname);
     }
 
-    public boolean hasEqualIdentifier(Person person) {
+    public boolean hasEqualIdentifier(VersionedPerson person) {
         return person.id.equals(id);
     }
 
     @Override
     public String toString() {
-        return "Person [id=" + id + ", name=" + name + ", surname=" + surname + "]";
+        return "Person [id=" + id + ", name=" + name + ", surname=" + surname + ", version=" + version + "]";
     }
 }

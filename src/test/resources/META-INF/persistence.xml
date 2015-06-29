@@ -5,6 +5,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>org.luksze.Person</class>
+        <class>org.luksze.VersionedPerson</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:firstBase"/>
