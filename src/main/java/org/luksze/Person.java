@@ -21,6 +21,10 @@ public class Person {
         this.surname = surname;
     }
 
+    public Long id() {
+        return id;
+    }
+
     public String firstName() {
         return name;
     }

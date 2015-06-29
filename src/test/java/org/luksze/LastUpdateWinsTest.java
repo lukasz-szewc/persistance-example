@@ -1,12 +1,11 @@
 package org.luksze;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,16 +25,62 @@ public class LastUpdateWinsTest {
         FirstTransactionContext transactionContext = oneTransactionAttemptsToModifyPersistedObject();
 
         //when
-        whenSecondTransactionUpdatesSuccessfullyObjectTheSameTime();
+        secondTransactionUpdatesSuccessfullyObjectTheSameTime();
 
         //then
         modificationFromFirstTransactionOverridesDatabaseState(transactionContext);
+    }
 
+    @Test
+    public void removedObjectIsNotRecreatedAgainInDatabase() throws Exception {
+        //given
+        FirstTransactionContext transactionContext = oneTransactionAttemptsToModifyPersistedObject();
+
+        //when
+        secondTransactionRemovesThatObjectTheSameTime();
+
+        //then
+        objectHasBeenSuccessfullyRemovedFromDatabase(transactionContext);
+
+        //when
+        RollbackException rollbackException = firstTransactionAttemptsToPersistObject(transactionContext);
+
+        //then
+        exceptionIsThrownAndObjectIsNotSavedInDatabase(transactionContext, rollbackException);
     }
 
     @After
     public void cleanup() throws Exception {
         entityManagerFactory.close();
+    }
+
+    private void exceptionIsThrownAndObjectIsNotSavedInDatabase(FirstTransactionContext transactionContext, RollbackException rollbackException) {
+        Person person = entityManager().find(Person.class, transactionContext.person.id());
+        Assert.assertNull(person);
+        Assert.assertNotNull(rollbackException);
+        Assert.assertTrue(rollbackException.getCause() instanceof OptimisticLockException);
+    }
+
+    private RollbackException firstTransactionAttemptsToPersistObject(FirstTransactionContext transactionContext) {
+        try {
+            persistWithinTransaction(transactionContext.entityManager, transactionContext.person);
+            return null;
+        } catch (RollbackException e) {
+            return e;
+        }
+    }
+
+    private void objectHasBeenSuccessfullyRemovedFromDatabase(FirstTransactionContext transactionContext) {
+        Person person = entityManager().find(Person.class, transactionContext.person.id());
+        Assert.assertNull(person);
+    }
+
+    private void secondTransactionRemovesThatObjectTheSameTime() {
+        EntityManager entityManager = entityManager();
+        Person person = entityManager.find(Person.class, 1l);
+        entityManager.getTransaction().begin();
+        entityManager.remove(person);
+        entityManager.getTransaction().commit();
     }
 
     private void modificationFromFirstTransactionOverridesDatabaseState(FirstTransactionContext context) {
@@ -52,7 +97,7 @@ public class LastUpdateWinsTest {
         return new FirstTransactionContext(entityManager, person);
     }
 
-    private void whenSecondTransactionUpdatesSuccessfullyObjectTheSameTime() {
+    private void secondTransactionUpdatesSuccessfullyObjectTheSameTime() {
         EntityManager entityManager = entityManager();
         Person person = entityManager.find(Person.class, 1l);
         person.changeFirstName("Thomas");
