@@ -2,7 +2,9 @@ package org.luksze;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -15,13 +17,18 @@ import java.time.LocalTime;
 public class FirstTest {
 
     private static final Logger logger = LogManager.getLogger(FirstTest.class);
+    private EntityManagerFactory entityManagerFactory;
+
+    @Before
+    public void setUp() throws Exception {
+        entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
+    }
 
     @Test
     public void testName() throws Exception {
 
         LocalTime startTest = LocalTime.now();
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
 
         Duration from = Duration.between(startTest, LocalTime.now());
         logger.info("Entity manager factory created in: " + from.toMillis() + " milliseconds");
@@ -50,5 +57,10 @@ public class FirstTest {
         entityManager.getTransaction().begin();
         entityManager.persist(date);
         entityManager.getTransaction().commit();
+    }
+
+    @After
+    public void cleanUp() throws Exception {
+        entityManagerFactory.close();
     }
 }
