@@ -9,8 +9,10 @@
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="org.hibernate" level="info" />
+        <Logger name="org.hibernate" level="warn" />
         <Logger name="org.hibernate.ejb" level="error" />
         <Logger name="org.hibernate.SQL" level="debug" />
+        <Logger name="org.hibernate.jpa.internal.util.LogHelper" level="info" />
+        <Logger name="org.hibernate.engine.jdbc.connections.internal" level="error" />
     </Loggers>
 </Configuration>
