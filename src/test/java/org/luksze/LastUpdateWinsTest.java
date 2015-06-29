@@ -48,15 +48,15 @@ public class LastUpdateWinsTest {
     private FirstTransactionContext oneTransactionAttemptsToModifyPersistedObject() {
         EntityManager entityManager = entityManager();
         Person person = entityManager.find(Person.class, 1l);
-        person.setSurname("Doe");
+        person.changeFamilyName("Doe");
         return new FirstTransactionContext(entityManager, person);
     }
 
     private void whenSecondTransactionUpdatesSuccessfullyObjectTheSameTime() {
         EntityManager entityManager = entityManager();
         Person person = entityManager.find(Person.class, 1l);
-        person.setName("Thomas");
-        person.setSurname("Miller");
+        person.changeFirstName("Thomas");
+        person.changeFamilyName("Miller");
         persistWithinTransaction(entityManager, person);
     }
 
