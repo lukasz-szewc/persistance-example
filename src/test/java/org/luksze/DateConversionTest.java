@@ -44,10 +44,13 @@ public class DateConversionTest {
 
     private DateAndTimeEntity persistedDateAndTimeObject() {
         DateAndTimeEntity dateAndTimeEntity = new DateAndTimeEntity();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        persist(dateAndTimeEntity, entityManagerFactory.createEntityManager());
+        return dateAndTimeEntity;
+    }
+
+    private void persist(DateAndTimeEntity dateAndTimeEntity, EntityManager entityManager) {
         entityManager.getTransaction().begin();
         entityManager.persist(dateAndTimeEntity);
         entityManager.getTransaction().commit();
-        return dateAndTimeEntity;
     }
 }
