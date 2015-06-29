@@ -6,26 +6,22 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
-public class Date {
+public class DateAndTimeEntity {
 
     @Id
     @GeneratedValue
     private Long id;
     private LocalDate localDate;
 
-    public Long getId() {
-        return id;
+    public DateAndTimeEntity() {
+        this.localDate = LocalDate.now();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getLocalDate() {
+    public LocalDate localDate() {
         return localDate;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public Long id() {
+        return id;
     }
 }
