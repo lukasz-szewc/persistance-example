@@ -40,8 +40,8 @@ public class FirstTest {
         manager.getTransaction().begin();
         Person person1 = manager.find(Person.class, 1l);
 
-        Assert.assertEquals(person.getName(), person1.getName());
-        Assert.assertEquals(person.getSurname(), person1.getSurname());
+        Assert.assertEquals(person.firstName(), person1.firstName());
+        Assert.assertEquals(person.surname(), person1.surname());
         manager.getTransaction().commit();
 
         Date date = new Date();

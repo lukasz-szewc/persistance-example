@@ -21,7 +21,7 @@ public class Person {
         this.surname = surname;
     }
 
-    public String getName() {
+    public String firstName() {
         return name;
     }
 
@@ -29,7 +29,7 @@ public class Person {
         this.name = name;
     }
 
-    public String getSurname() {
+    public String surname() {
         return surname;
     }
 
