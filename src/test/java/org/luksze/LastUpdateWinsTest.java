@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import javax.persistence.*;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class LastUpdateWinsTest {
@@ -56,7 +57,7 @@ public class LastUpdateWinsTest {
 
     private void exceptionIsThrownAndObjectIsNotSavedInDatabase(FirstTransactionContext transactionContext, RollbackException rollbackException) {
         Person person = entityManager().find(Person.class, transactionContext.person.id());
-        Assert.assertNull(person);
+        assertNull(person);
         Assert.assertNotNull(rollbackException);
         Assert.assertTrue(rollbackException.getCause() instanceof OptimisticLockException);
     }
@@ -71,8 +72,7 @@ public class LastUpdateWinsTest {
     }
 
     private void objectHasBeenSuccessfullyRemovedFromDatabase(FirstTransactionContext transactionContext) {
-        Person person = entityManager().find(Person.class, transactionContext.person.id());
-        Assert.assertNull(person);
+        assertNull(entityManager().find(Person.class, transactionContext.person.id()));
     }
 
     private void secondTransactionRemovesThatObjectTheSameTime() {
