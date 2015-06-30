@@ -7,6 +7,8 @@
         <class>org.luksze.Person</class>
         <class>org.luksze.VersionedPerson</class>
         <class>org.luksze.converters.DateAndTimeEntity</class>
+        <class>org.luksze.cascade.Address</class>
+        <class>org.luksze.cascade.Employee</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
