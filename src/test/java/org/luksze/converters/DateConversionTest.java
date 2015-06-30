@@ -15,7 +15,7 @@ public class DateConversionTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu");
     }
 
     @Test

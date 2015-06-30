@@ -16,7 +16,7 @@ public class LastUpdateWinsTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu");
         persistWithinTransaction(entityManager(), new Person("john", "smith"));
     }
 

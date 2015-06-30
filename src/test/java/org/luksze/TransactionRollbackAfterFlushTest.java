@@ -15,7 +15,7 @@ public class TransactionRollbackAfterFlushTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("hsqldb-test-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu");
         entityManager = entityManager();
     }
 
