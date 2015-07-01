@@ -10,6 +10,8 @@
         <class>org.luksze.cascade.Address</class>
         <class>org.luksze.cascade.Employee</class>
         <class>org.luksze.cascade.Corporation</class>
+        <class>org.luksze.cascade.Bride</class>
+        <class>org.luksze.cascade.Groom</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
