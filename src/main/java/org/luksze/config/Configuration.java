@@ -10,7 +10,9 @@ public class Configuration extends HashMap<Object, Object> {
     public Configuration() {
         Properties properties = createProperties(readConfigurationFile());
         for (String key : properties.stringPropertyNames()) {
-            put(key, readProperty(properties, key));
+            String value = readProperty(properties, key);
+            System.out.println("property: " + key + " property:" + value);
+            put(key, value);
         }
     }
 
