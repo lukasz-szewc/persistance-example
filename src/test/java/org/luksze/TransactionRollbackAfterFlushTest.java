@@ -22,7 +22,6 @@ public class TransactionRollbackAfterFlushTest {
     }
 
     @Test
-    @Ignore
     public void transactionCanRollBackDespiteManualFlushes() throws Exception {
         //given active transaction with manual flush into database
         activeTransactionAlreadyFlushedIntoDatabase();
