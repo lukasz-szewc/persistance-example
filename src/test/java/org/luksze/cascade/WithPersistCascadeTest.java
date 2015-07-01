@@ -15,7 +15,7 @@ public class WithPersistCascadeTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("cascade-pu");
     }
 
     @Test
