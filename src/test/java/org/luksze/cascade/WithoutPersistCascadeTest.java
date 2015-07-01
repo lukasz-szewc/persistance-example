@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.luksze.config.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +19,7 @@ public class WithoutPersistCascadeTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("cascade-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("cascade-pu", new Configuration());
     }
 
     @Test

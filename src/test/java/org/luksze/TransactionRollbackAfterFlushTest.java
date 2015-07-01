@@ -3,6 +3,7 @@ package org.luksze;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.luksze.config.Configuration;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +16,7 @@ public class TransactionRollbackAfterFlushTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
         entityManager = entityManager();
     }
 

@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.luksze.config.Configuration;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ public class VersionedPersonTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
         persistWithinTransaction(entityManager(), new VersionedPerson("john", "smith"));
     }
 
