@@ -3,6 +3,7 @@ package org.luksze.cascade;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Address {
@@ -18,19 +19,15 @@ public class Address {
         this.city = city;
     }
 
-    public Long getId() {
+    public boolean hasEqualContent(Address a) {
+        return this == a || Objects.equals(city, a.city);
+    }
+
+    public boolean hasEqualIdentifier(Address address) {
+        return address.id.equals(id);
+    }
+
+    public Long id() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 }

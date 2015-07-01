@@ -9,6 +9,7 @@
         <class>org.luksze.converters.DateAndTimeEntity</class>
         <class>org.luksze.cascade.Address</class>
         <class>org.luksze.cascade.Employee</class>
+        <class>org.luksze.cascade.Corporation</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
