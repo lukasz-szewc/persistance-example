@@ -2,7 +2,6 @@ package org.luksze;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.luksze.config.Configuration;
 
@@ -55,11 +54,12 @@ public class TransactionRollbackAfterFlushTest {
     }
 
     private void thereIsNoPersistedObjectInDatabase() {
-        assertTrue(result().isEmpty());
+        entityManager.clear();
+        assertTrue(result(entityManager).isEmpty());
     }
 
-    private List<VersionedPerson> result() {
-        return entityManager().createQuery(query(), VersionedPerson.class).getResultList();
+    private List<VersionedPerson> result(EntityManager entityManager) {
+        return entityManager.createQuery(query(), VersionedPerson.class).getResultList();
     }
 
     private String query() {
