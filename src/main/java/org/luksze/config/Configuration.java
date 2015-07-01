@@ -10,8 +10,16 @@ public class Configuration extends HashMap<Object, Object> {
     public Configuration() {
         Properties properties = createProperties(readConfigurationFile());
         for (String key : properties.stringPropertyNames()) {
-            put(key, properties.getProperty(key));
+            put(key, readProperty(properties, key));
         }
+    }
+
+    private String readProperty(Properties properties, String key) {
+        String property = properties.getProperty(key);
+        if (property.startsWith("$")) {
+            return System.getenv(property.substring(1));
+        }
+        return property;
     }
 
     private InputStream readConfigurationFile() {
