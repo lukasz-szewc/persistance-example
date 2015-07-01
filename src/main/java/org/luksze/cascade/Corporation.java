@@ -1,7 +1,6 @@
 package org.luksze.cascade;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 public class Corporation {
