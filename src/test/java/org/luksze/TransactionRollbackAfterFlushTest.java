@@ -34,6 +34,13 @@ public class TransactionRollbackAfterFlushTest {
 
     @After
     public void cleanup() throws Exception {
+        System.out.println("Closing:");
+
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        System.out.println("Transaction state: " + transaction.isActive());
+        entityManager.close();
+        System.out.println("Transaction state: " + transaction.isActive());
         entityManagerFactory.close();
     }
 
@@ -67,10 +74,7 @@ public class TransactionRollbackAfterFlushTest {
     }
 
     private List<VersionedPerson> result(EntityManager entityManager) {
-        entityManager.getTransaction().begin();
-        List<VersionedPerson> resultList = entityManager.createQuery(query(), VersionedPerson.class).getResultList();
-        entityManager.getTransaction().commit();
-        return resultList;
+        return entityManager.createQuery(query(), VersionedPerson.class).getResultList();
     }
 
     private String query() {
