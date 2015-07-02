@@ -34,21 +34,11 @@ public class TransactionRollbackAfterFlushTest {
 
     @After
     public void cleanup() throws Exception {
-        System.out.println("Closing:");
-
-        EntityTransaction transaction = entityManager.getTransaction();
-
-        System.out.println("Transaction state: " + transaction.isActive());
-        entityManager.close();
-        System.out.println("Transaction state: " + transaction.isActive());
         entityManagerFactory.close();
     }
 
     private void transactionRollsBack() {
-        EntityTransaction transaction = entityManager.getTransaction();
-        presentTransaction(transaction);
-        transaction.rollback();
-        presentTransaction(transaction);
+        entityManager.getTransaction().rollback();
     }
 
     private EntityManager entityManager() {
@@ -56,16 +46,11 @@ public class TransactionRollbackAfterFlushTest {
     }
 
     private void activeTransactionAlreadyFlushedIntoDatabase() {
-        EntityTransaction transaction = entityManager.getTransaction();
-        presentTransaction(transaction);
-        transaction.begin();
+        entityManager.getTransaction().begin();
         entityManager.persist(new VersionedPerson("John", "Smith"));
+        entityManager.flush();
         entityManager.persist(new VersionedPerson("David", "Connor"));
         entityManager.flush();
-    }
-
-    private void presentTransaction(EntityTransaction transaction) {
-        System.out.println("transaction state, active: " + transaction.isActive() + " id: " + transaction.hashCode() );
     }
 
     private void thereIsNoPersistedObjectInDatabase() {
