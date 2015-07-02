@@ -54,6 +54,7 @@ public class TransactionRollbackAfterFlushTest {
         transaction.begin();
         entityManager.persist(new VersionedPerson("John", "Smith"));
         entityManager.persist(new VersionedPerson("David", "Connor"));
+        entityManager.flush();
     }
 
     private void presentTransaction(EntityTransaction transaction) {
@@ -66,7 +67,10 @@ public class TransactionRollbackAfterFlushTest {
     }
 
     private List<VersionedPerson> result(EntityManager entityManager) {
-        return entityManager.createQuery(query(), VersionedPerson.class).getResultList();
+        entityManager.getTransaction().begin();
+        List<VersionedPerson> resultList = entityManager.createQuery(query(), VersionedPerson.class).getResultList();
+        entityManager.getTransaction().commit();
+        return resultList;
     }
 
     private String query() {
