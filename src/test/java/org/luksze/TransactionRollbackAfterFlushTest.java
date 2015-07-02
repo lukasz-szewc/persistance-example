@@ -34,6 +34,7 @@ public class TransactionRollbackAfterFlushTest {
 
     @After
     public void cleanup() throws Exception {
+        entityManager.close();
         entityManagerFactory.close();
     }
 
