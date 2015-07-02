@@ -64,7 +64,7 @@
                 <version>2.18</version>
                 <configuration>
                     <includes>
-                        <include>**/*TransactionRollbackAfterFlushTest.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
