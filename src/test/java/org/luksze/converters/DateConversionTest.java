@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.luksze.CleanDatabaseTest;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 public class DateConversionTest extends CleanDatabaseTest {
 
@@ -28,7 +29,7 @@ public class DateConversionTest extends CleanDatabaseTest {
     }
 
     private DateAndTimeEntity objectIsFetchedAgainFromDatabase(DateAndTimeEntity dateAndTimeEntity) {
-        return entityManager().find(DateAndTimeEntity.class, dateAndTimeEntity.id());
+        return entityManager().find(DateAndTimeEntity.class, dateAndTimeEntity.id(), LockModeType.NONE);
 
     }
 
