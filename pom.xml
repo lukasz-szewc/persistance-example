@@ -64,7 +64,7 @@
                 <version>2.18</version>
                 <configuration>
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>**/*DateConversionTest.java</include>
                     </includes>
                 </configuration>
             </plugin>

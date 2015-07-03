@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.luksze.CleanDatabaseTest;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 
 public class DateConversionTest extends CleanDatabaseTest {
 
