@@ -5,6 +5,7 @@ import org.luksze.config.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,11 @@ public class CleanDatabaseTest {
     private void closeEntityManagers() {
         for (EntityManager entityManager : registeredEntityManagers) {
             System.out.println("before is open: " + entityManager.isOpen() + " is joined to transaction:" + entityManager.isJoinedToTransaction());
+            EntityTransaction transaction = entityManager.getTransaction();
+            System.out.println("transaction state: " + transaction.isActive());
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
             if (entityManager.isOpen()) {
                 entityManager.close();
             }
