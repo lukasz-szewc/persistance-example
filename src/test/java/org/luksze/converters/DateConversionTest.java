@@ -1,26 +1,19 @@
 package org.luksze.converters;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
+import org.luksze.CleanDatabaseTest;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
-public class DateConversionTest {
+public class DateConversionTest extends CleanDatabaseTest {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    @Before
-    public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
+    public DateConversionTest() {
+        super("test-pu");
     }
 
     @Test
-    public void testName() throws Exception {
+    public void objectWithDateShouldBePersisted() throws Exception {
         //given
         DateAndTimeEntity persisted = persistedDateAndTimeObject();
 
@@ -34,20 +27,14 @@ public class DateConversionTest {
         Assert.assertEquals(fetched.thirdLocalDateTime(), persisted.thirdLocalDateTime());
     }
 
-    @After
-    public void cleanUp() throws Exception {
-        entityManagerFactory.close();
-    }
-
     private DateAndTimeEntity objectIsFetchedAgainFromDatabase(DateAndTimeEntity dateAndTimeEntity) {
-        return entityManagerFactory.createEntityManager().
-                find(DateAndTimeEntity.class, dateAndTimeEntity.id());
+        return entityManager().find(DateAndTimeEntity.class, dateAndTimeEntity.id());
 
     }
 
     private DateAndTimeEntity persistedDateAndTimeObject() {
         DateAndTimeEntity dateAndTimeEntity = new DateAndTimeEntity();
-        persist(dateAndTimeEntity, entityManagerFactory.createEntityManager());
+        persistWithinTransaction(entityManager(), dateAndTimeEntity);
         return dateAndTimeEntity;
     }
 

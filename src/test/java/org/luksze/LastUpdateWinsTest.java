@@ -1,23 +1,24 @@
 package org.luksze;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
+import javax.persistence.RollbackException;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class LastUpdateWinsTest {
+public class LastUpdateWinsTest extends CleanDatabaseTest {
 
-    private EntityManagerFactory entityManagerFactory;
+    public LastUpdateWinsTest() {
+        super("test-pu");
+    }
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
         persistWithinTransaction(entityManager(), new Person("john", "smith"));
     }
 
@@ -49,11 +50,6 @@ public class LastUpdateWinsTest {
 
         //then
         exceptionIsThrownAndObjectIsNotSavedInDatabase(transactionContext, rollbackException);
-    }
-
-    @After
-    public void cleanup() throws Exception {
-        entityManagerFactory.close();
     }
 
     private void exceptionIsThrownAndObjectIsNotSavedInDatabase(FirstTransactionContext transactionContext, RollbackException rollbackException) {
@@ -104,16 +100,6 @@ public class LastUpdateWinsTest {
         person.changeFirstName("Thomas");
         person.changeFamilyName("Miller");
         persistWithinTransaction(entityManager, person);
-    }
-
-    private EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
-    }
-
-    private void persistWithinTransaction(EntityManager entityManager, Person person) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(person);
-        entityManager.getTransaction().commit();
     }
 
     private static class FirstTransactionContext {

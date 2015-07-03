@@ -1,25 +1,16 @@
 package org.luksze.cascade;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
+import org.luksze.CleanDatabaseTest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
 import static org.junit.Assert.assertNotNull;
 
-public class WithoutPersistCascadeTest {
+public class WithoutPersistCascadeTest extends CleanDatabaseTest {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    @Before
-    public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("cascade-pu", new Configuration());
+    public WithoutPersistCascadeTest() {
+        super("cascade-pu");
     }
 
     @Test
@@ -47,16 +38,6 @@ public class WithoutPersistCascadeTest {
         return null;
     }
 
-    private void persistWithinTransaction(EntityManager entityManager, Object object) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
-    }
-
-    private EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
-    }
-
     private Employee newEntitiesEmployeeWithAddress() {
         Employee employee = new Employee();
         Address address = new Address("NY");
@@ -64,8 +45,4 @@ public class WithoutPersistCascadeTest {
         return employee;
     }
 
-    @After
-    public void cleanUp() throws Exception {
-        entityManagerFactory.close();
-    }
 }

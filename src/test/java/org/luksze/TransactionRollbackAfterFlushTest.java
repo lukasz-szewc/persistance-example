@@ -1,22 +1,17 @@
 package org.luksze;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class TransactionRollbackAfterFlushTest {
-    private EntityManagerFactory entityManagerFactory;
+public class TransactionRollbackAfterFlushTest extends CleanDatabaseTest {
     private EntityManager entityManager;
 
-    @Before
-    public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
+    public TransactionRollbackAfterFlushTest() {
+        super("test-pu");
         entityManager = entityManager();
     }
 
@@ -32,17 +27,8 @@ public class TransactionRollbackAfterFlushTest {
         thereIsNoPersistedObjectInDatabase();
     }
 
-    @After
-    public void cleanup() throws Exception {
-        entityManagerFactory.close();
-    }
-
     private void transactionRollsBack() {
         entityManager.getTransaction().rollback();
-    }
-
-    private EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
     }
 
     private void activeTransactionAlreadyFlushedIntoDatabase() {
