@@ -29,9 +29,9 @@ public class DateConversionTest extends CleanDatabaseTest {
 
     private DateAndTimeEntity objectIsFetchedAgainFromDatabase(DateAndTimeEntity dateAndTimeEntity) {
         EntityManager entityManager = entityManager();
-        entityManager.getTransaction().begin();
+//        entityManager.getTransaction().begin();
         DateAndTimeEntity dateAndTimeEntity1 = entityManager.find(DateAndTimeEntity.class, dateAndTimeEntity.id());
-        entityManager.getTransaction().commit();
+//        entityManager.getTransaction().commit();
         return dateAndTimeEntity1;
 
     }
@@ -42,9 +42,4 @@ public class DateConversionTest extends CleanDatabaseTest {
         return dateAndTimeEntity;
     }
 
-    private void persist(DateAndTimeEntity dateAndTimeEntity, EntityManager entityManager) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(dateAndTimeEntity);
-        entityManager.getTransaction().commit();
-    }
 }
