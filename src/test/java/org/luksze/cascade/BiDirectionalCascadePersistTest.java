@@ -3,6 +3,8 @@ package org.luksze.cascade;
 import org.junit.Test;
 import org.luksze.CleanDatabaseTest;
 
+import javax.persistence.EntityManager;
+
 public class BiDirectionalCascadePersistTest extends CleanDatabaseTest {
 
     public BiDirectionalCascadePersistTest() {
@@ -34,9 +36,16 @@ public class BiDirectionalCascadePersistTest extends CleanDatabaseTest {
     }
 
     private void bothObjectsAreStoredInDatabase(Bride bride, Groom groom) {
-        Bride fetchedBride = entityManager().find(Bride.class, bride.id());
+        EntityManager entityManager = entityManager();
+        entityManager.getTransaction().begin();
+        Bride fetchedBride = entityManager.find(Bride.class, bride.id());
+        entityManager.getTransaction().commit();
         fetchedBride.hasEqualIdentifier(bride);
-        Groom fetchedGroom = entityManager().find(Groom.class, groom.id());
+
+        EntityManager entityManager1 = entityManager();
+        entityManager1.getTransaction().begin();
+        Groom fetchedGroom = entityManager1.find(Groom.class, groom.id());
+        entityManager1.getTransaction().commit();
         fetchedGroom.hasEqualIdentifier(groom);
     }
 
