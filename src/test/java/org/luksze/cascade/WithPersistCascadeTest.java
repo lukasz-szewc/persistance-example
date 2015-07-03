@@ -1,22 +1,13 @@
 package org.luksze.cascade;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
+import org.luksze.CleanDatabaseTest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+public class WithPersistCascadeTest extends CleanDatabaseTest {
 
-public class WithPersistCascadeTest {
-
-    private EntityManagerFactory entityManagerFactory;
-
-    @Before
-    public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("cascade-pu", new Configuration());
+    public WithPersistCascadeTest() {
+        super("cascade-pu");
     }
 
     @Test
@@ -58,18 +49,4 @@ public class WithPersistCascadeTest {
         persistWithinTransaction(entityManager(), object);
     }
 
-    private void persistWithinTransaction(EntityManager entityManager, Object object) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
-    }
-
-    private EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
-    }
-
-    @After
-    public void cleanUp() throws Exception {
-        entityManagerFactory.close();
-    }
 }

@@ -1,22 +1,17 @@
 package org.luksze;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class TransactionRollbackAfterFlushTest {
-    private EntityManagerFactory entityManagerFactory;
+public class TransactionRollbackAfterFlushTest extends CleanDatabaseTest {
     private EntityManager entityManager;
 
-    @Before
-    public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
+    public TransactionRollbackAfterFlushTest() {
+        super("test-pu");
         entityManager = entityManager();
     }
 
@@ -32,18 +27,8 @@ public class TransactionRollbackAfterFlushTest {
         thereIsNoPersistedObjectInDatabase();
     }
 
-    @After
-    public void cleanup() throws Exception {
-        entityManager.close();
-        entityManagerFactory.close();
-    }
-
     private void transactionRollsBack() {
         entityManager.getTransaction().rollback();
-    }
-
-    private EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
     }
 
     private void activeTransactionAlreadyFlushedIntoDatabase() {
@@ -55,12 +40,11 @@ public class TransactionRollbackAfterFlushTest {
     }
 
     private void thereIsNoPersistedObjectInDatabase() {
-        entityManager.clear();
-        assertTrue(result(entityManager).isEmpty());
+        assertTrue(result().isEmpty());
     }
 
-    private List<VersionedPerson> result(EntityManager entityManager) {
-        return entityManager.createQuery(query(), VersionedPerson.class).getResultList();
+    private List<VersionedPerson> result() {
+        return entityManager().createQuery(query(), VersionedPerson.class).getResultList();
     }
 
     private String query() {

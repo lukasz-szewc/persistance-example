@@ -1,20 +1,19 @@
 package org.luksze;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.luksze.config.Configuration;
 
 import javax.persistence.*;
 
-public class VersionedPersonTest {
+public class VersionedPersonTest extends CleanDatabaseTest {
 
-    private EntityManagerFactory entityManagerFactory;
+    public VersionedPersonTest() {
+        super("test-pu");
+    }
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("test-pu", new Configuration());
         persistWithinTransaction(entityManager(), new VersionedPerson("john", "smith"));
     }
 
@@ -52,21 +51,6 @@ public class VersionedPersonTest {
         versionedPerson.changeFamilyName("Doe");
         versionedPerson.changeFirstName("David");
         persistWithinTransaction(entityManager, versionedPerson);
-    }
-
-    @After
-    public void cleanup() throws Exception {
-        entityManagerFactory.close();
-    }
-
-    private EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
-    }
-
-    private void persistWithinTransaction(EntityManager entityManager, VersionedPerson person) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(person);
-        entityManager.getTransaction().commit();
     }
 
     private static class FirstTransactionContext {
