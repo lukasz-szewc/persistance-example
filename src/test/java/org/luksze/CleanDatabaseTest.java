@@ -26,9 +26,11 @@ public class CleanDatabaseTest {
 
     private void closeEntityManagers() {
         for (EntityManager entityManager : registeredEntityManagers) {
+            System.out.println("before is open: " + entityManager.isOpen() + " is joined to transaction:" + entityManager.isJoinedToTransaction());
             if (entityManager.isOpen()) {
                 entityManager.close();
             }
+            System.out.println("after is open: " + entityManager.isOpen());
         }
     }
 
