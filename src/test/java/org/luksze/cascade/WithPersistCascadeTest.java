@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.luksze.CleanDatabaseTest;
 
+import javax.persistence.LockModeType;
+
 public class WithPersistCascadeTest extends CleanDatabaseTest {
 
     public WithPersistCascadeTest() {
@@ -28,13 +30,13 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
     }
 
     private void addressIsStored(Address address) {
-        Address fetchedAddress = entityManager().find(Address.class, address.id());
+        Address fetchedAddress = entityManager().find(Address.class, address.id(), LockModeType.NONE);
         Assert.assertTrue(fetchedAddress.hasEqualContent(address));
         Assert.assertTrue(fetchedAddress.hasEqualIdentifier(address));
     }
 
     private void corporationIsStored(Corporation corporation) {
-        Corporation fetched = entityManager().find(Corporation.class, 1l);
+        Corporation fetched = entityManager().find(Corporation.class, 1l, LockModeType.NONE);
         Assert.assertTrue(fetched.hasEqualContent(corporation));
         Assert.assertTrue(fetched.hasEqualIdentifier(corporation));
     }
