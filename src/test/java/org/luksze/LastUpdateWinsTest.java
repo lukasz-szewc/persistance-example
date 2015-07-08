@@ -71,7 +71,9 @@ public class LastUpdateWinsTest extends CleanDatabaseTest {
     }
 
     private void objectHasBeenSuccessfullyRemovedFromDatabase(FirstTransactionContext transactionContext) {
-        assertNull(entityManager().find(Person.class, transactionContext.person.id()));
+        EntityManager entityManager = entityManager();
+        assertNull(entityManager.find(Person.class, transactionContext.person.id()));
+        entityManager.close();
     }
 
     private void secondTransactionRemovesThatObjectTheSameTime() {
