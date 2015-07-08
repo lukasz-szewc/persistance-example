@@ -37,16 +37,15 @@ public class BiDirectionalCascadePersistTest extends CleanDatabaseTest {
 
     private void bothObjectsAreStoredInDatabase(Bride bride, Groom groom) {
         EntityManager entityManager = entityManager();
-        entityManager.getTransaction().begin();
         Bride fetchedBride = entityManager.find(Bride.class, bride.id());
-        entityManager.getTransaction().commit();
         fetchedBride.hasEqualIdentifier(bride);
 
         EntityManager entityManager1 = entityManager();
-        entityManager1.getTransaction().begin();
         Groom fetchedGroom = entityManager1.find(Groom.class, groom.id());
-        entityManager1.getTransaction().commit();
         fetchedGroom.hasEqualIdentifier(groom);
+
+        entityManager.close();
+        entityManager1.close();
     }
 
     private Bride twoTransientEntitiesWithinBidirectionalRelation(String brideName, String groomName) {

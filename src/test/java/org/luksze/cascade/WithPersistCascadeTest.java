@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.luksze.CleanDatabaseTest;
 
+import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
 public class WithPersistCascadeTest extends CleanDatabaseTest {
@@ -30,15 +31,19 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
     }
 
     private void addressIsStored(Address address) {
-        Address fetchedAddress = entityManager().find(Address.class, address.id(), LockModeType.NONE);
+        EntityManager entityManager = entityManager();
+        Address fetchedAddress = entityManager.find(Address.class, address.id(), LockModeType.NONE);
         Assert.assertTrue(fetchedAddress.hasEqualContent(address));
         Assert.assertTrue(fetchedAddress.hasEqualIdentifier(address));
+        entityManager.close();
     }
 
     private void corporationIsStored(Corporation corporation) {
-        Corporation fetched = entityManager().find(Corporation.class, 1l, LockModeType.NONE);
+        EntityManager entityManager = entityManager();
+        Corporation fetched = entityManager.find(Corporation.class, 1l, LockModeType.NONE);
         Assert.assertTrue(fetched.hasEqualContent(corporation));
         Assert.assertTrue(fetched.hasEqualIdentifier(corporation));
+        entityManager.close();
     }
 
     private Corporation newTransientCorporationInstanceWithAddress() {

@@ -53,10 +53,12 @@ public class LastUpdateWinsTest extends CleanDatabaseTest {
     }
 
     private void exceptionIsThrownAndObjectIsNotSavedInDatabase(FirstTransactionContext transactionContext, RollbackException rollbackException) {
-        Person person = entityManager().find(Person.class, transactionContext.person.id());
+        EntityManager entityManager = entityManager();
+        Person person = entityManager.find(Person.class, transactionContext.person.id());
         assertNull(person);
         Assert.assertNotNull(rollbackException);
         Assert.assertTrue(rollbackException.getCause() instanceof OptimisticLockException);
+        entityManager.close();
     }
 
     private RollbackException firstTransactionAttemptsToPersistObject(FirstTransactionContext transactionContext) {
@@ -78,13 +80,16 @@ public class LastUpdateWinsTest extends CleanDatabaseTest {
         entityManager.getTransaction().begin();
         entityManager.remove(person);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     private void modificationFromFirstTransactionOverridesDatabaseState(FirstTransactionContext context) {
         persistWithinTransaction(context.entityManager, context.person);
-        Person person = entityManager().find(Person.class, 1l);
+        EntityManager entityManager = entityManager();
+        Person person = entityManager.find(Person.class, 1l);
         assertTrue(person.hasEqualContent(context.person));
         assertTrue(person.hasEqualIdentifier(context.person));
+        entityManager.close();
     }
 
     private FirstTransactionContext oneTransactionAttemptsToModifyPersistedObject() {
