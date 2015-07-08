@@ -44,7 +44,10 @@ public class TransactionRollbackAfterFlushTest extends CleanDatabaseTest {
     }
 
     private List<VersionedPerson> result() {
-        return entityManager().createQuery(query(), VersionedPerson.class).getResultList();
+        EntityManager entityManager = entityManager();
+        List<VersionedPerson> resultList = entityManager.createQuery(query(), VersionedPerson.class).getResultList();
+        entityManager.close();
+        return resultList;
     }
 
     private String query() {
