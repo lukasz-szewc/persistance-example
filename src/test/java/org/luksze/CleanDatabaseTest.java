@@ -37,6 +37,7 @@ public class CleanDatabaseTest {
             if (entityManager.isOpen()) {
                 System.out.println("entuty manager is joined with active transaction: " + entityManager.isJoinedToTransaction());
                 System.out.println("closing entity manager");
+                entityManager.clear();
                 entityManager.close();
             }
             System.out.println("after cleanup. entity manager open flag: " + entityManager.isOpen());
