@@ -27,7 +27,7 @@ public class CleanDatabaseTest {
 
     private void closeEntityManagers() {
         for (EntityManager entityManager : registeredEntityManagers) {
-            System.out.println("before cleanup, entity manager is open: " + entityManager.isOpen() + " is joined to transaction:" + entityManager.isJoinedToTransaction());
+            System.out.println("before cleanup, entity manager is open: " + entityManager.isOpen() + " is joined to transaction:");
             EntityTransaction transaction = entityManager.getTransaction();
             System.out.println("transaction activity state: " + transaction.isActive());
             if (transaction.isActive()) {
@@ -35,6 +35,7 @@ public class CleanDatabaseTest {
                 transaction.rollback();
             }
             if (entityManager.isOpen()) {
+                System.out.println("entuty manager is joined with active transaction: " + entityManager.isJoinedToTransaction());
                 System.out.println("closing entity manager");
                 entityManager.close();
             }
