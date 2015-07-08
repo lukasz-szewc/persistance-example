@@ -29,12 +29,9 @@ public class CleanDatabaseTest {
         for (EntityManager entityManager : registeredEntityManagers) {
             EntityTransaction transaction = entityManager.getTransaction();
             if (transaction.isActive()) {
-                System.out.println("explicitly rolling back");
                 transaction.rollback();
             }
             if (entityManager.isOpen()) {
-                System.out.println("closing entity manager");
-//                entityManager.clear();
                 entityManager.close();
             }
         }
