@@ -39,12 +39,12 @@ public class BiDirectionalCascadePersistTest extends CleanDatabaseTest {
         EntityManager entityManager = entityManager();
         Bride fetchedBride = entityManager.find(Bride.class, bride.id());
         fetchedBride.hasEqualIdentifier(bride);
+        entityManager.close();
 
         EntityManager entityManager1 = entityManager();
         Groom fetchedGroom = entityManager1.find(Groom.class, groom.id());
         fetchedGroom.hasEqualIdentifier(groom);
 
-        entityManager.close();
         entityManager1.close();
     }
 
