@@ -30,7 +30,7 @@ public class DateConversionTest extends CleanDatabaseTest {
     private DateAndTimeEntity objectIsFetchedAgainFromDatabase(DateAndTimeEntity dateAndTimeEntity) {
         EntityManager entityManager = entityManager();
         DateAndTimeEntity dateAndTimeEntity1 = entityManager.find(DateAndTimeEntity.class, dateAndTimeEntity.id());
-        entityManager.close();
+//        entityManager.close();
         return dateAndTimeEntity1;
 
     }
