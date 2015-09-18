@@ -54,7 +54,9 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
     }
 
     private void corporationIsPersistedAndAddressIsNot(Object object) {
-        persistWithinTransaction(entityManager(), object);
+        EntityManager entityManager = entityManager();
+        persistWithinTransaction(entityManager, object);
+        entityManager.close();
     }
 
 }
