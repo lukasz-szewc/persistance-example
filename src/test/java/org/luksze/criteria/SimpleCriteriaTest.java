@@ -28,6 +28,7 @@ public class SimpleCriteriaTest extends CleanDatabaseTest {
     @Test
     public void test() throws Exception {
         EntityManager entityManager = entityManager();
+        entityManager.getTransaction().begin();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Person> criteriaQuery = criteriaBuilder.createQuery(Person.class);
         Root<Person> root = criteriaQuery.from(Person.class);
@@ -35,7 +36,7 @@ public class SimpleCriteriaTest extends CleanDatabaseTest {
         TypedQuery<Person> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Person> resultList = typedQuery.getResultList();
         System.out.println(resultList);
-
+        entityManager.getTransaction().rollback();
     }
 
 }
