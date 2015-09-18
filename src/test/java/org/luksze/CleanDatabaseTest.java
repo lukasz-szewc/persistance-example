@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class CleanDatabaseTest {
 
@@ -26,7 +27,9 @@ public class CleanDatabaseTest {
     }
 
     private void closeEntityManagers() {
-        for (EntityManager entityManager : registeredEntityManagers) {
+        ListIterator<EntityManager> entityManagerListIterator = registeredEntityManagers.listIterator(registeredEntityManagers.size());
+        while (entityManagerListIterator.hasPrevious()) {
+            EntityManager entityManager = entityManagerListIterator.previous();
             EntityTransaction transaction = entityManager.getTransaction();
             if (transaction.isActive()) {
                 transaction.rollback();
