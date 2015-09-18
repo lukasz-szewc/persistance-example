@@ -44,7 +44,7 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
         Corporation fetched = entityManager.find(Corporation.class, 1l, LockModeType.NONE);
         Assert.assertTrue(fetched.hasEqualContent(corporation));
         Assert.assertTrue(fetched.hasEqualIdentifier(corporation));
-//        entityManager.close();
+        entityManager.close();
     }
 
     private Corporation newTransientCorporationInstanceWithAddress() {
