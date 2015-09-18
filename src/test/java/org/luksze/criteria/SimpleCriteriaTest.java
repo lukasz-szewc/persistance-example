@@ -36,7 +36,7 @@ public class SimpleCriteriaTest extends CleanDatabaseTest {
         TypedQuery<Person> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Person> resultList = typedQuery.getResultList();
         System.out.println(resultList);
-        entityManager.close();
+//        entityManager.close();
     }
 
 }
