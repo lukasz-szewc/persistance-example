@@ -20,15 +20,15 @@ public class SimpleCriteriaTest extends CleanDatabaseTest {
 
     @Before
     public void setUp() throws Exception {
-        persistWithinTransaction(entityManager(), new Person("John", "Smith"));
-        persistWithinTransaction(entityManager(), new Person("Ann", "Snow"));
-        persistWithinTransaction(entityManager(), new Person("Emilia", "Sand"));
+        persistWithinTransaction(entityManager(),
+                new Person("John", "Smith"),
+                new Person("Ann", "Snow"),
+                new Person("Emilia", "Sand"));
     }
 
     @Test
     public void test() throws Exception {
         EntityManager entityManager = entityManager();
-        entityManager.getTransaction().begin();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Person> criteriaQuery = criteriaBuilder.createQuery(Person.class);
         Root<Person> root = criteriaQuery.from(Person.class);
@@ -36,7 +36,7 @@ public class SimpleCriteriaTest extends CleanDatabaseTest {
         TypedQuery<Person> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Person> resultList = typedQuery.getResultList();
         System.out.println(resultList);
-        entityManager.getTransaction().rollback();
+        entityManager.close();
     }
 
 }

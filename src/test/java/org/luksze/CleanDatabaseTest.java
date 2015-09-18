@@ -43,6 +43,14 @@ public class CleanDatabaseTest {
         entityManager.getTransaction().commit();
     }
 
+    protected void persistWithinTransaction(EntityManager entityManager, Object ... object) {
+        entityManager.getTransaction().begin();
+        for (Object o : object) {
+            entityManager.persist(o);
+        }
+        entityManager.getTransaction().commit();
+    }
+
     protected EntityManager entityManager() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         registeredEntityManagers.add(entityManager);
