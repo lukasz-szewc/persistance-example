@@ -36,7 +36,7 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
         Address fetchedAddress = entityManager.find(Address.class, address.id(), LockModeType.NONE);
         Assert.assertTrue(fetchedAddress.hasEqualContent(address));
         Assert.assertTrue(fetchedAddress.hasEqualIdentifier(address));
-        entityManager.close();
+//        entityManager.close();
     }
 
     private void corporationIsStored(Corporation corporation) {
@@ -44,7 +44,7 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
         Corporation fetched = entityManager.find(Corporation.class, 1l, LockModeType.NONE);
         Assert.assertTrue(fetched.hasEqualContent(corporation));
         Assert.assertTrue(fetched.hasEqualIdentifier(corporation));
-//        entityManager.close();
+        entityManager.close();
     }
 
     private Corporation newTransientCorporationInstanceWithAddress() {
@@ -54,9 +54,7 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
     }
 
     private void corporationIsPersistedAndAddressIsNot(Object object) {
-        EntityManager entityManager = entityManager();
-        persistWithinTransaction(entityManager, object);
-        entityManager.close();
+        persistWithinTransaction(entityManager(), object);
     }
 
 }
