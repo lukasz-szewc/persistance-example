@@ -26,8 +26,8 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
     }
 
     private void bothObjectsAreStoredInDataBase(Corporation corporation) {
-        corporationIsStored(corporation);
         addressIsStored(corporation.address());
+        corporationIsStored(corporation);
     }
 
     private void addressIsStored(Address address) {
