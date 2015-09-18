@@ -26,24 +26,14 @@ public class WithPersistCascadeTest extends CleanDatabaseTest {
     }
 
     private void bothObjectsAreStoredInDataBase(Corporation corporation) {
-        addressIsStored(corporation.address());
-        corporationIsStored(corporation);
-    }
-
-    private void addressIsStored(Address address) {
+        Address address = corporation.address();
         EntityManager entityManager = entityManager();
         Address fetchedAddress = entityManager.find(Address.class, address.id(), LockModeType.NONE);
         Assert.assertTrue(fetchedAddress.hasEqualContent(address));
         Assert.assertTrue(fetchedAddress.hasEqualIdentifier(address));
-//        entityManager.close();
-    }
-
-    private void corporationIsStored(Corporation corporation) {
-        EntityManager entityManager = entityManager();
         Corporation fetched = entityManager.find(Corporation.class, 1l, LockModeType.NONE);
         Assert.assertTrue(fetched.hasEqualContent(corporation));
         Assert.assertTrue(fetched.hasEqualIdentifier(corporation));
-//        entityManager.close();
     }
 
     private Corporation newTransientCorporationInstanceWithAddress() {
