@@ -4,6 +4,7 @@
     <persistence-unit name="test-pu" transaction-type="RESOURCE_LOCAL">
         <class>org.luksze.Person</class>
         <class>org.luksze.VersionedPerson</class>
+        <class>org.luksze.VersionedPersonWrapper</class>
         <class>org.luksze.converters.DateAndTimeEntity</class>
     </persistence-unit>
 
