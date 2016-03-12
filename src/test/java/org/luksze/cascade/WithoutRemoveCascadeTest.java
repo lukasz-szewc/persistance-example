@@ -13,7 +13,7 @@ public class WithoutRemoveCascadeTest extends CleanDatabaseTest {
     }
 
     @Test
-    public void testName() throws Exception {
+    public void onlyParentObjectWillBeRemovedWhenNoCascadeRemoveProvided() throws Exception {
         //given
         Employee employee = twoObjectsInDatabaseWithNoCascadeRemoveRelation();
 
