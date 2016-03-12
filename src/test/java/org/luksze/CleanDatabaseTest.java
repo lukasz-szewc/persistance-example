@@ -32,9 +32,11 @@ public class CleanDatabaseTest {
         }
     }
 
-    protected void persistWithinTransaction(EntityManager entityManager, Object object) {
+    protected void persistWithinTransaction(EntityManager entityManager, Object ... objects) {
         entityManager.getTransaction().begin();
-        entityManager.persist(object);
+        for (Object o : objects) {
+            entityManager.persist(o);
+        }
         entityManager.getTransaction().commit();
     }
 

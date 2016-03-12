@@ -22,4 +22,8 @@ public class Employee {
     public void assignAddress(Address address) {
         this.address = address;
     }
+
+    public Long id() {
+        return id;
+    }
 }
