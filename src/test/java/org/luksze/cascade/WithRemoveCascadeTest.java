@@ -22,10 +22,10 @@ public class WithRemoveCascadeTest extends CleanDatabaseTest {
 
         //then
         Assert.assertNull(corporationHasBeenRemoved(corporation));
-        Assert.assertNull(adressHasBeenRemoved(corporation.address()));
+        Assert.assertNull(addressHasBeenRemoved(corporation.address()));
     }
 
-    private Object adressHasBeenRemoved(Address address) {
+    private Object addressHasBeenRemoved(Address address) {
         return entityManager().find(Address.class, address.id());
     }
 
