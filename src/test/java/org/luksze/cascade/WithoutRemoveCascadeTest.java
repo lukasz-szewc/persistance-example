@@ -18,7 +18,7 @@ public class WithoutRemoveCascadeTest extends CleanDatabaseTest {
         Employee employee = twoObjectsInDatabaseWithNoCascadeRemoveRelation();
 
         //when
-        removeEmployee(employee);
+        removeParentObjectEmployee(employee);
 
         //then
         Assert.assertNull(employeeHasBeenRemoved(employee));
@@ -33,7 +33,7 @@ public class WithoutRemoveCascadeTest extends CleanDatabaseTest {
         return entityManager().find(Employee.class, givenEmployee.id());
     }
 
-    private void removeEmployee(Employee detachedEmployee) {
+    private void removeParentObjectEmployee(Employee detachedEmployee) {
         EntityManager entityManager = entityManager();
         entityManager.getTransaction().begin();
         Employee employee = entityManager.find(Employee.class, detachedEmployee.id());

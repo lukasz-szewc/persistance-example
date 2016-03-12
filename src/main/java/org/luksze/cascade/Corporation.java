@@ -9,7 +9,7 @@ public class Corporation {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Address address;
 
     public void assignAddress(Address address) {
@@ -26,5 +26,9 @@ public class Corporation {
 
     public Address address() {
         return address;
+    }
+
+    public Long id() {
+        return id;
     }
 }
