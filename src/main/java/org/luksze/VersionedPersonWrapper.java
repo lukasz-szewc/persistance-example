@@ -15,24 +15,10 @@ public class VersionedPersonWrapper {
     @OneToOne(cascade = CascadeType.ALL)
     VersionedPerson versionedPerson;
 
-    public VersionedPersonWrapper() {
-    }
+    protected VersionedPersonWrapper() {}
 
     public VersionedPersonWrapper(VersionedPerson versionedPerson) {
         this.versionedPerson = versionedPerson;
-    }
-
-    public VersionedPerson getVersionedPerson() {
-        return versionedPerson;
-    }
-
-    @Override
-    public String toString() {
-        return "VersionedPersonWrapper{" +
-                "id=" + id +
-                ", version=" + version +
-                ", versionedPerson=" + versionedPerson +
-                '}';
     }
 
     public boolean versionHasBeenIncrementedByOne(VersionedPersonWrapper versionedPersonWrapper) {
@@ -45,5 +31,18 @@ public class VersionedPersonWrapper {
 
     public boolean versionIsTheSame(VersionedPersonWrapper versionedPersonWrapper) {
         return version == versionedPersonWrapper.version;
+    }
+
+    public void changeFirstName(String name) {
+        versionedPerson.changeFirstName(name);
+    }
+
+    @Override
+    public String toString() {
+        return "VersionedPersonWrapper{" +
+                "id=" + id +
+                ", version=" + version +
+                ", versionedPerson=" + versionedPerson +
+                '}';
     }
 }

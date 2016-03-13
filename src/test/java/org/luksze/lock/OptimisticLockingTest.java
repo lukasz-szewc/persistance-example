@@ -29,10 +29,10 @@ public class OptimisticLockingTest extends CleanDatabaseTest {
         VersionedPerson versionedPerson = secondTransactionTransactionChangeUpdatesObject();
 
         //and
-        VersionedPersonWrapper wrapper = firstTransactionCompletes(transactionContext);
+        VersionedPerson person = firstTransactionCompletes(transactionContext);
 
         //then
-        objectHasBeenSavedWithStaleState(versionedPerson, wrapper);
+        objectHasBeenSavedWithStaleState(versionedPerson, person);
     }
 
     @Test
@@ -62,15 +62,15 @@ public class OptimisticLockingTest extends CleanDatabaseTest {
         Assert.assertTrue(ex.getCause() instanceof OptimisticLockException);
     }
 
-    private void objectHasBeenSavedWithStaleState(VersionedPerson versionedPerson, VersionedPersonWrapper wrapper) {
-        Assert.assertFalse(versionedPerson.hasEqualContent(wrapper.getVersionedPerson()));
+    private void objectHasBeenSavedWithStaleState(VersionedPerson versionedPerson, VersionedPerson person) {
+        Assert.assertFalse(versionedPerson.hasEqualContent(person));
     }
 
-    private VersionedPersonWrapper firstTransactionCompletes(TransactionContext context) {
+    private VersionedPerson firstTransactionCompletes(TransactionContext context) {
         VersionedPersonWrapper versionedPersonWrapper = new VersionedPersonWrapper(context.versionedPerson);
         context.entityManager.persist(versionedPersonWrapper);
         context.entityManager.getTransaction().commit();
-        return versionedPersonWrapper;
+        return context.versionedPerson;
     }
 
     private TransactionContext firstTransactionAttemptsToModifyLockedObject(LockModeType lockMode) {

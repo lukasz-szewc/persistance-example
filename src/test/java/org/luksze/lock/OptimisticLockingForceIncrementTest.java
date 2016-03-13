@@ -58,7 +58,7 @@ public class OptimisticLockingForceIncrementTest extends CleanDatabaseTest {
         EntityManager firstEntityManager = entityManager();
         firstEntityManager.getTransaction().begin();
         VersionedPersonWrapper wrapper = firstEntityManager.find(VersionedPersonWrapper.class, 1l, lockMode);
-        wrapper.getVersionedPerson().changeFirstName("William");
+        wrapper.changeFirstName("William");
         firstEntityManager.getTransaction().commit();
         return wrapper;
     }
