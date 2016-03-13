@@ -12,7 +12,7 @@ public class VersionedPersonWrapper {
     @Version
     private long version;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     VersionedPerson versionedPerson;
 
     public VersionedPersonWrapper() {
@@ -33,5 +33,17 @@ public class VersionedPersonWrapper {
                 ", version=" + version +
                 ", versionedPerson=" + versionedPerson +
                 '}';
+    }
+
+    public boolean versionHasBeenIncrementedByOne(VersionedPersonWrapper versionedPersonWrapper) {
+        return version == versionedPersonWrapper.version + 1;
+    }
+
+    public boolean childObjectVersionHasBeenIncrementedByOne(VersionedPersonWrapper versionedPersonWrapper) {
+        return versionedPerson.versionHasBeenIncrementedByOne(versionedPersonWrapper.versionedPerson);
+    }
+
+    public boolean versionIsTheSame(VersionedPersonWrapper versionedPersonWrapper) {
+        return version == versionedPersonWrapper.version;
     }
 }

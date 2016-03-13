@@ -46,6 +46,15 @@ public class VersionedPerson {
 
     @Override
     public String toString() {
-        return "Person [id=" + id + ", name=" + name + ", surname=" + surname + ", version=" + version + "]";
+        return "VersionedPerson{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", version=" + version +
+                '}';
+    }
+
+    public boolean versionHasBeenIncrementedByOne(VersionedPerson versionedPerson) {
+        return version == versionedPerson.version + 1;
     }
 }
