@@ -16,7 +16,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.10.Final</version>
+            <version>5.2.11.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
