@@ -10,10 +10,11 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <Logger name="org.hibernate" level="WARN" />
+    <Logger name="org.hibernate" level="INFO" />
     <Logger name="org.hibernate.ejb" level="ERROR" />
-    <Logger name="org.hibernate.sql" level="DEBUG" />
+    <Logger name="org.hibernate.SQL" level="DEBUG" />
     <Logger name="org.hibernate.type" level="DEBUG" />
+    <Logger name="org.hibernate.type.BasicTypeRegistry" level="INFO" />
     <Logger name="org.hibernate.jpa.internal.util.LogHelper" level="WARN" />
     <Logger name="org.hibernate.engine.jdbc.connections.internal" level="ERROR" />
 </configuration>
