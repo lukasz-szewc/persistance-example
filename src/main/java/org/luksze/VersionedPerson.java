@@ -24,10 +24,6 @@ public class VersionedPerson {
         this.surname = surname;
     }
 
-    public Long id() {
-        return id;
-    }
-
     public void changeFirstName(String name) {
         this.name = name;
     }
@@ -38,10 +34,6 @@ public class VersionedPerson {
 
     public boolean hasEqualContent(VersionedPerson p) {
         return this == p || Objects.equals(name, p.name) && Objects.equals(surname, p.surname);
-    }
-
-    public boolean hasEqualIdentifier(VersionedPerson person) {
-        return person.id.equals(id);
     }
 
     @Override
